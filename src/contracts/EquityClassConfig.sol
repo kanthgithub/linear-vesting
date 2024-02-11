@@ -3,7 +3,6 @@ pragma solidity 0.8.20;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "./EquityStakingConstants.sol";
-import "forge-std/console.sol";
 
 /// @title EquityClassConfig
 /// @author kanth
