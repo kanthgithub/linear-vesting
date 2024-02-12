@@ -11,18 +11,14 @@ More classes/designations can be added based on requirement via EquityClassInfo 
 
 ## Smart Contracts:
 
-1. EquityClassConfig.sol
+1. [EquityClassConfig](./src/contracts/EquityClassConfig.sol)
 
-[EquityClassConfig](./src/contracts/EquityClassConfig.sol)
+- Contract to manage the equity classes(add/update the equity classes)
+- EquityClassInfo is mapped per Designation of the employee
+- Designations are defined as constants in [EquityStakingConstants](./src/contracts/EquityStakingConstants.sol#L8)
+ 
 
-Contract to manage the equity classes(add/update the equity classes)
-EquityClassInfo is mapped per Designation of the employee
-Designations are defined as constants in EquityStakingConstants.sol
-
-[EquityStakingConstants](./src/contracts/EquityStakingConstants.sol#L8)
-
-
-2. EquityStaking.sol
+2. [EquityStaking.sol](./src/contracts/EquityStaking.sol)
 
 - Grant staking for an employee with a designation
 - Claim Vested Tokens for an employee based on the equityClass config settings of the designation
@@ -38,8 +34,7 @@ Designations are defined as constants in EquityStakingConstants.sol
 
 ## Procedure to add new designations
 
-1. Add new entry to enum `Designation` in `EquityStakingConstants.sol`
-[Designations](./src/contracts/EquityStakingConstants.sol#L8)
+1. Add new entry to enum [Designations](./src/contracts/EquityStakingConstants.sol#L8) in `EquityStakingConstants.sol`
 
 ## Procedure to add new EquityClassInfo
 
@@ -50,15 +45,13 @@ Designations are defined as constants in EquityStakingConstants.sol
    4. cliffPeriod - cliff period in seconds
    5. totalVestingPeriods - in numerical value
 
-- Only Owner of the `EquityClassConfig` contract can set or update info
-  [setEquityClassInfo](./src/contracts/EquityClassConfig.sol#L40)
+- Only Owner of the `EquityClassConfig` contract can [set or update EquityClassinfo](./src/contracts/EquityClassConfig.sol#L40)
   
 ## Procedure to grant equity to an employee
 
 1.  `grantEquity` function of `EquityStaking.sol` is called by admin with arguments:
      - employeeAddress
      - designation
-
 
 
 ## Testing
@@ -120,7 +113,6 @@ forge test
     - can chose vesting period as quarter, half year, monthly instead of year 
     - Once fixed it remains same for the entire vesting cycle of the employee
 3. Ensure Staking contract has the sufficient token balance right at time of `grantEquity`
-
 
 ## Tech Debt
 
