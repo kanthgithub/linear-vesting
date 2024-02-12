@@ -53,6 +53,12 @@ Designations are defined as constants in EquityStakingConstants.sol
 - Only Owner of the `EquityClassConfig` contract can set or update info
   [setEquityClassInfo](./src/contracts/EquityClassConfig.sol#L40)
   
+## Procedure to grant equity to an employee
+
+1.  `grantEquity` function of `EquityStaking.sol` is called by admin with arguments:
+     - employeeAddress
+     - designation
+
 
 
 ## Testing
@@ -69,7 +75,7 @@ Designations are defined as constants in EquityStakingConstants.sol
 
 - copy the `.env.example` file to `.env`
 
-## Build
+### Build
 
 - Ensure you are on node version of 18.x.x or greater version
 - Install the project dependencies 
@@ -77,7 +83,7 @@ Designations are defined as constants in EquityStakingConstants.sol
 yarn install
 ```
 
-## Forge build
+### Forge build
 
 ```sh
 forge install OpenZeppelin/openzeppelin-contracts
@@ -95,14 +101,31 @@ forge install foundry-rs/forge-std
 forge build
 ```
 
-## Hardhat compilation
+### Hardhat compilation
 
 ```sh
 npx hardhat compile
 ```
 
-## Testing
+### Testing
 
 ```sh
 forge test
 ```
+
+## Feature Enhancements (Good to have)
+
+1. Employee can do partial claim of the vestedAmount or claimableAmount
+2. Ability to add varying duration of vesting period
+    - can chose vesting period as quarter, half year, monthly instead of year 
+    - Once fixed it remains same for the entire vesting cycle of the employee
+3. Ensure Staking contract has the sufficient token balance right at time of `grantEquity`
+
+
+## Tech Debt
+
+1. Make Vesting-Contract Upgradeable
+2. Convert require to revert with Custom Error Codes (Similar to Sablier-V2 contracts)
+3. Deployment Scripts
+4. Tooling around grantEquity, claim and view functions for staking.
+   - tooling can be made as an API to manage from an UserInterface

@@ -160,9 +160,7 @@ contract EquityStaking is EquityStakingConstants, Ownable {
         uint256 effectiveIntervals = intervalsPassed > grant.totalVestingPeriods ? grant.totalVestingPeriods : intervalsPassed;
 
         // Calculate vested tokens
-        uint256 vestedTokens = effectiveIntervals * grant.tokensPerVestingPeriod;
-
-        return vestedTokens;
+        return effectiveIntervals * grant.tokensPerVestingPeriod;
     }
 
     /// @notice Allows the owner to withdraw tokens in case of an emergency
