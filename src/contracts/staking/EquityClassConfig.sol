@@ -41,7 +41,7 @@ contract EquityClassConfig is EquityStakingConstants, Ownable {
         require(uint8(designation) <= uint8(Designation.Others), "Invalid designation");
         require(totalTokens > 0, "Total tokens must be greater than 0");
         require(vestingRateBasisPoints >= MIN_VESTING_RATE && vestingRateBasisPoints <= MAX_VESTING_RATE, "Vesting rate must be within 100-10000 basis points");
-
+        
         // Calculate tokensPerVestingPeriod based on totalTokens and vestingRateBasisPoints
         uint256 tokensPerVestingPeriod = (totalTokens * vestingRateBasisPoints) / MAX_VESTING_RATE;
 

@@ -86,24 +86,20 @@ contract EquityStaking is EquityStakingConstants, Ownable {
     /// @notice Claims vested tokens for an employee
     /// @param employee The address of the employee
     function claimVestedTokens(address employee) external {
-        require(msg.sender == employee || msg.sender == owner(), "Only the employee or owner can unlock vested tokens");
+        require(msg.sender == employee , "Only the employee or owner can unlock vested tokens");
 
         Grant storage grant = grants[employee];
         require(block.timestamp > grant.vestingStartTime, "Cliff period not reached");
 
-        uint256 vestedAmount = getVestedAmount(employee);
-
-        require(vestedAmount > grant.claimedTokens, "No tokens to claim");
-
-        uint256 tokensToClaim = vestedAmount - grant.claimedTokens;
+        uint256 tokensToClaim = getClaimableAmount(employee);
         require(equityTokenContract.balanceOf(address(this)) >= tokensToClaim, "Not enough tokens in the contract");
 
-        grant.claimedTokens = vestedAmount;
+        grant.claimedTokens += tokensToClaim;
 
         bool transferSuccessful = equityTokenContract.transfer(employee, tokensToClaim);
         require(transferSuccessful, "Token transfer failed");
 
-        emit VestedTokensClaimed(employee, vestedAmount);
+        emit VestedTokensClaimed(employee, tokensToClaim);
     }
 
     /// @notice Returns the amount of tokens that an employee can currently claim
